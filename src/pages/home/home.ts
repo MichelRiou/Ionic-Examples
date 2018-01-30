@@ -73,7 +73,7 @@ export class HomePage {
       'playing': false
     }
   ];
-  private currentAnimal: number;
+  private currentAnimal: string;
   public result: string;
   public showReorder=false;
   constructor(public navCtrl: NavController) { }
@@ -81,9 +81,9 @@ export class HomePage {
   /**
    * Choix aléatoire d'un animal
    */
-  pickAnimalPosition() {
+  pickAnimalName() {
     let animalName;
-    if (!this.currentPosition) {
+    if (!this.currentAnimal) {
       animalName = Math.floor(Math.random() * this.animals.length);
     } else {
       animalName = this.currentAnimal;
@@ -95,7 +95,7 @@ export class HomePage {
     this.result = "";
     // Choix d'un animal
     console.log("click");
-    this.currentAnimal = this.pickAnimalPosition();
+    this.currentAnimal = this.pickAnimalName();
     let choosenAnimal = this.animals[this.currentAnimal];
     // Chargement du son
     let audio = new Audio();
@@ -110,7 +110,7 @@ export class HomePage {
    */
   guess(animalName) {
     if (this.currentAnimal) {
-      if (animalName == this.currentAnimal.title) {
+      if (animalName == this.currentAnimal) {
         this.result = "Gagné";
         this.currentAnimal = null;
       } else {
