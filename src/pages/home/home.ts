@@ -7,79 +7,114 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
 
-  }
   animals = [
     {
       'title': 'Vache',
-      'image': 'img/animals/cow-icon.png',
+      'image': 'imgs/animals/cow-icon.png',
       'desc': 'Meugle',
       'file': '/sounds/cow.mp3',
       'playing': false
     },
     {
       'title': 'Dauphin',
-      'image': 'img/animals/dolphin-icon.png',
+      'image': 'imgs/animals/dolphin-icon.png',
       'desc': 'Siffle',
       'file': '/sounds/dolphin.mp3',
       'playing': false
     },
     {
       'title': 'Grenouille',
-      'image': 'img/animals/frog-icon.png',
+      'image': 'imgs/animals/frog-icon.png',
       'desc': 'Coasse',
       'file': '/sounds/frog.mp3',
       'playing': false
     },
     {
       'title': 'Oiseau',
-      'image': 'img/animals/bird-icon.png',
+      'image': 'imgs/animals/bird-icon.png',
       'desc': 'Chante',
       'file': '/sounds/bird.mp3',
       'playing': false
     },
     {
       'title': 'Cochon',
-      'image': 'img/animals/pig-icon.png',
+      'image': 'imgs/animals/pig-icon.png',
       'desc': 'Grogne',
       'file': '/sounds/pig.mp3',
       'playing': false
     },
     {
       'title': 'Chien',
-      'image': 'img/animals/puppy-icon.png',
+      'image': 'imgs/animals/puppy-icon.png',
       'desc': 'Aboie',
       'file': '/sounds/dog.mp3',
       'playing': false
     },
     {
       'title': 'Chat',
-      'image': 'img/animals/black-cat-icon.png',
+      'image': 'imgs/animals/black-cat-icon.png',
       'desc': 'Miaule',
       'file': '/sounds/cat.mp3',
       'playing': false
     },
     {
       'title': 'Cheval',
-      'image': 'img/animals/horse-icon.png',
+      'image': 'imgs/animals/horse-icon.png',
       'desc': 'Hennit',
       'file': '/sounds/horse.wav',
       'playing': false
     },
     {
       'title': 'Ane',
-      'image': 'img/animals/donkey-icon.png',
+      'image': 'imgs/animals/donkey-icon.png',
       'desc': 'Brait',
       'file': '/sounds/donkey.wav',
       'playing': false
     }
   ];
+  private currentPosition: number;
+  public result: string;
+  constructor(public navCtrl: NavController) { }
+
   /**
    * Choix aléatoire d'un animal
    */
-  pickAnimalPosition(){
-    let pos=Math.floor(Math.random())*this.animals.length;
+  pickAnimalPosition() {
+    let pos;
+    if (!this.currentPosition) {
+      pos = Math.floor(Math.random() * this.animals.length);
+    } else {
+      pos = this.currentPosition;
+    }
+
     return pos;
+  }
+  playSound() {
+    this.result = "";
+    // Choix d'un animal
+    console.log("click");
+    this.currentPosition = this.pickAnimalPosition();
+    let choosenAnimal = this.animals[this.currentPosition];
+    // Chargement du son
+    let audio = new Audio();
+    audio.src = 'assets' + choosenAnimal.file;
+    console.log(choosenAnimal.file);
+    audio.load();
+    audio.play();
+  }
+  /**
+   * 
+   * @param pos Postion dans Animals
+   */
+  guess(pos) {
+    if (this.currentPosition) {
+      if (pos == this.currentPosition) {
+        this.result = "Gagné";
+        this.currentPosition = null;
+      } else {
+        this.result = "Essaie encore";
+      }
+    }
   }
 }
