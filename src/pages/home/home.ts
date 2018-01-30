@@ -73,29 +73,30 @@ export class HomePage {
       'playing': false
     }
   ];
-  private currentPosition: number;
+  private currentAnimal: number;
   public result: string;
+  public showReorder=false;
   constructor(public navCtrl: NavController) { }
 
   /**
    * Choix aléatoire d'un animal
    */
   pickAnimalPosition() {
-    let pos;
+    let animalName;
     if (!this.currentPosition) {
-      pos = Math.floor(Math.random() * this.animals.length);
+      animalName = Math.floor(Math.random() * this.animals.length);
     } else {
-      pos = this.currentPosition;
+      animalName = this.currentAnimal;
     }
 
-    return pos;
+    return animalName;
   }
   playSound() {
     this.result = "";
     // Choix d'un animal
     console.log("click");
-    this.currentPosition = this.pickAnimalPosition();
-    let choosenAnimal = this.animals[this.currentPosition];
+    this.currentAnimal = this.pickAnimalPosition();
+    let choosenAnimal = this.animals[this.currentAnimal];
     // Chargement du son
     let audio = new Audio();
     audio.src = 'assets' + choosenAnimal.file;
@@ -107,14 +108,15 @@ export class HomePage {
    * 
    * @param pos Postion dans Animals
    */
-  guess(pos) {
-    if (this.currentPosition) {
-      if (pos == this.currentPosition) {
+  guess(animalName) {
+    if (this.currentAnimal) {
+      if (animalName == this.currentAnimal.title) {
         this.result = "Gagné";
-        this.currentPosition = null;
+        this.currentAnimal = null;
       } else {
         this.result = "Essaie encore";
       }
     }
   }
+  
 }
