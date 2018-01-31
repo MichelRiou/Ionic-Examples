@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -73,34 +73,36 @@ export class HomePage {
       'playing': false
     }
   ];
-  private currentAnimal: string;
+  private currentAnimal;
   public result: string;
   public showReorder=false;
-  constructor(public navCtrl: NavController) { }
+  constructor(public navCtrl: NavController, public toastCtrl:ToastController) { }
 
   /**
    * Choix aléatoire d'un animal
    */
-  pickAnimalName() {
-    let animalName;
+  pickAnimal() {
+    let pos;
+    let animal;
     if (!this.currentAnimal) {
-      animalName = Math.floor(Math.random() * this.animals.length);
+      pos = Math.floor(Math.random() * this.animals.length);
+      animal=this.animals[pos];
     } else {
-      animalName = this.currentAnimal;
+      animal = this.currentAnimal;
     }
 
-    return animalName;
+    return animal;
   }
   playSound() {
     this.result = "";
     // Choix d'un animal
     console.log("click");
-    this.currentAnimal = this.pickAnimalName();
-    let choosenAnimal = this.animals[this.currentAnimal];
+    this.currentAnimal = this.pickAnimal();
+    //let choosenAnimal = this.animals[this.currentAnimal];
     // Chargement du son
     let audio = new Audio();
-    audio.src = 'assets' + choosenAnimal.file;
-    console.log(choosenAnimal.file);
+    audio.src = 'assets' + this.currentAnimal.file;
+   // console.log("choosenanimal" + choosenAnimal.file);
     audio.load();
     audio.play();
   }
@@ -109,14 +111,28 @@ export class HomePage {
    * @param pos Postion dans Animals
    */
   guess(animalName) {
+    //console.log("guess"+animalName);
+    //console.log("current"+this.currentAnimal.title);
+
     if (this.currentAnimal) {
-      if (animalName == this.currentAnimal) {
-        this.result = "Gagné";
-        this.currentAnimal = null;
+      if (animalName == this.currentAnimal.title) {
+        //this.result = "Gagné";
+        this.currentAnimal=null;
+        this.toastCtrl.create({
+          message:"Gagné",
+          duration:1000,
+          position:'top'
+        }).present();
+        //this.currentAnimal = null;
       } else {
-        this.result = "Essaie encore";
+        this.toastCtrl.create({
+          message:"Essaie encore",
+          duration:1000,
+          position:'top'
+        }).present();
+        //this.result = "Essaie encore";
       }
     }
   }
-  
+ 
 }
