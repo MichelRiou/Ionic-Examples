@@ -13,33 +13,17 @@
 
 <ion-content padding>
   <ion-list>
-      <ion-item-group [reorder]="showReorder" (ionItemReorder)="$event.applyTo(animals)">
-    <ion-item *ngFor="let animal of animals; let pos=index" (click)="guess(animal.title)">
-      <ion-avatar item-left >
-        <img src="assets/{{animal.image}}">
-      </ion-avatar>
-      <h2>{{animal.title}}</h2>
-      <p>{{animal.desc}}</p>
-    </ion-item>
+    <ion-item-group [reorder]="showReorder" (ionItemReorder)="$event.applyTo(animals)">
+      <ion-item *ngFor="let animal of animals; let pos=index">
+        <ion-thumbnail (click)="guess(animal.title)">
+          <img src="assets/{{animal.image}}">
+        </ion-thumbnail>
+        <h2>{{animal.title}}</h2>
+        <p>{{animal.desc}}</p>
+        <ion-icon name="information-circle" item-right (click)="goToDetails(animal)"></ion-icon>
+      </ion-item>
     </ion-item-group>
-    </ion-list>
-  <ion-grid>
-    <ion-row>
-      <ion-col col-4>col 1</ion-col>
-      <ion-col col-4>col 2</ion-col>
-      <ion-col col-4>col 3</ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-4>col 4</ion-col>
-      <ion-col col-4>col 5</ion-col>
-      <ion-col col-4>col 6</ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-4>col 7</ion-col>
-      <ion-col col-4>col 8</ion-col>
-      <ion-col col-4>col 9</ion-col>
-    </ion-row>
-  </ion-grid>
+  </ion-list>
 </ion-content>
 <ion-footer padding>
   <P class="message">{{result}}</P>

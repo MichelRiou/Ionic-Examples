@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController,ToastController } from 'ionic-angular';
+import { NavController,ToastController, Events } from 'ionic-angular';
+import { DetailsPage } from '../details/details';
+import { leave } from '@angular/core/src/profile/wtf_impl';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-
-
   animals = [
     {
       'title': 'Vache',
@@ -76,8 +76,21 @@ export class HomePage {
   private currentAnimal;
   public result: string;
   public showReorder=false;
-  constructor(public navCtrl: NavController, public toastCtrl:ToastController) { }
-
+  //data = [];
+  constructor(public navCtrl: NavController, public toastCtrl:ToastController,public events:Events) {
+    // L'abonnement pourrait avoir lieu ici plutot que lors du cycle de vie ionViewDidLoad
+   }
+   ionViewDidLoad(){
+    this.events.subscribe('event.data', (data)=>{
+      let test =JSON.parse(data);
+      this.toastCtrl.create({
+        message:test.nom,
+        duration:2000,
+        position:'top'
+      }).present();  
+    });
+    
+    }
   /**
    * Choix aléatoire d'un animal
    */
@@ -134,5 +147,7 @@ export class HomePage {
       }
     }
   }
- 
+  goToDetails(animal){
+    this.navCtrl.push(DetailsPage,{data:animal}); // Doit être déclarée dans app.modules.ts 
+  } 
 }
