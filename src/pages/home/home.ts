@@ -1,3 +1,4 @@
+import { AnimalsProvider } from './../../providers/animals/animals';
 import { Component } from '@angular/core';
 import { NavController,ToastController, Events } from 'ionic-angular';
 import { DetailsPage } from '../details/details';
@@ -8,79 +9,16 @@ import { leave } from '@angular/core/src/profile/wtf_impl';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  animals = [
-    {
-      'title': 'Vache',
-      'image': 'imgs/animals/cow-icon.png',
-      'desc': 'Meugle',
-      'file': '/sounds/cow.mp3',
-      'playing': false
-    },
-    {
-      'title': 'Dauphin',
-      'image': 'imgs/animals/dolphin-icon.png',
-      'desc': 'Siffle',
-      'file': '/sounds/dolphin.mp3',
-      'playing': false
-    },
-    {
-      'title': 'Grenouille',
-      'image': 'imgs/animals/frog-icon.png',
-      'desc': 'Coasse',
-      'file': '/sounds/frog.mp3',
-      'playing': false
-    },
-    {
-      'title': 'Oiseau',
-      'image': 'imgs/animals/bird-icon.png',
-      'desc': 'Chante',
-      'file': '/sounds/bird.mp3',
-      'playing': false
-    },
-    {
-      'title': 'Cochon',
-      'image': 'imgs/animals/pig-icon.png',
-      'desc': 'Grogne',
-      'file': '/sounds/pig.mp3',
-      'playing': false
-    },
-    {
-      'title': 'Chien',
-      'image': 'imgs/animals/puppy-icon.png',
-      'desc': 'Aboie',
-      'file': '/sounds/dog.mp3',
-      'playing': false
-    },
-    {
-      'title': 'Chat',
-      'image': 'imgs/animals/black-cat-icon.png',
-      'desc': 'Miaule',
-      'file': '/sounds/cat.mp3',
-      'playing': false
-    },
-    {
-      'title': 'Cheval',
-      'image': 'imgs/animals/horse-icon.png',
-      'desc': 'Hennit',
-      'file': '/sounds/horse.wav',
-      'playing': false
-    },
-    {
-      'title': 'Ane',
-      'image': 'imgs/animals/donkey-icon.png',
-      'desc': 'Brait',
-      'file': '/sounds/donkey.wav',
-      'playing': false
-    }
-  ];
+  animals;
   private currentAnimal;
   public result: string;
   public showReorder=false;
   //data = [];
-  constructor(public navCtrl: NavController, public toastCtrl:ToastController,public events:Events) {
+  constructor(public navCtrl: NavController, public toastCtrl:ToastController,public events:Events,public animalsProvider:AnimalsProvider) {
     // L'abonnement pourrait avoir lieu ici plutot que lors du cycle de vie ionViewDidLoad
    }
    ionViewDidLoad(){
+     this.animals = this.animalsProvider.getAll();
     this.events.subscribe('event.data', (data)=>{
       let test =JSON.parse(data);
       this.toastCtrl.create({
