@@ -18,8 +18,18 @@ export class TodoProvider {
     {task: 'Faire un commit', done: false},
 
   ];
+  constructor(public storage:Storage){
+
+  }
+  public persist(){
+    this.storage.set("todoList",JSON.stringify(this.todoList));
+  }
 
   public getAll(){
+    this.storage.get("todoList").then((data)=>{
+      this.todoList=JSON.parse(data);
+      return this.todoList;
+    })
     return this.todoList;
   }
 
