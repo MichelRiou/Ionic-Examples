@@ -18,7 +18,8 @@ import { leave } from '@angular/core/src/profile/wtf_impl';
 export class RandomUserPage {
   private url:string="https://randomuser.me/api";
   public user ={
-    name : ''
+    name : '',
+    image: null
   };
   
 
@@ -30,6 +31,9 @@ export class RandomUserPage {
      (response) =>{
        console.table(response);
        console.table(response.json());
+       let data=response.json().results[0]; // Cela dépend de l'api utilisée  ici tab result de tab
+       this.user.name = data.name.title + ' ' + data.name.first + ' ' + data.name.last;
+       this.user.image = data.picture.large;
      }
    )
   }
