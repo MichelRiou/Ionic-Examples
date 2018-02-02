@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormPage } from '../form/form';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { TodoProvider } from './../../providers/todo/todo';
 
 @Component({
@@ -8,52 +8,62 @@ import { TodoProvider } from './../../providers/todo/todo';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  pos: any;
 
   public todoList
 
 
-  public filterList: string[] = ['Toutes','En cours','Terminées'];
+  public filterList: string[] = ['Toutes', 'En cours', 'Terminées'];
 
-  public selectedFilter:string = 'Toutes';
+  public selectedFilter: string = 'Toutes';
 
-  constructor(public navCtrl: NavController, public todoProvider: TodoProvider) {
+  constructor(public navCtrl: NavController, public todoProvider: TodoProvider, public alertCtrl: AlertController) {
 
   }
 
-  ionViewDidLoad(){
+  ionViewDidLoad() {
     this.todoList = this.todoProvider.getAll();
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.selectedFilter = 'Toutes';
     this.filterTodo();
   }
 
-  filterTodo(){
+  filterTodo() {
     let selectedItem = this.selectedFilter.trim();
-    if(selectedItem == 'En cours'){
+    if (selectedItem == 'En cours') {
       this.todoList = this.todoProvider.getNotDone();
-    } else if(selectedItem == 'Terminées'){
+    } else if (selectedItem == 'Terminées') {
       this.todoList = this.todoProvider.getDone();
     } else {
       this.todoList = this.todoProvider.getAll();
     }
   }
 
-  delete(pos){
-    this.todoProvider.delete(pos);
+  delete(pos) {
+    let alertOptions = {
+      title: 'Voulez vous confirmer?',
+      buttons: [
+        { text: 'OUI', handler: () => { this.todoProvider.delete(pos); } },
+        { text: 'NON', role: 'cancel' }
+      ]
+    };
+    this.alertCtrl.create(alertOptions).present();
+
   }
 
-  edit(todo){
-    this.navCtrl.push(FormPage, {todo: todo});
+  edit(todo) {
+    this.navCtrl.push(FormPage, { todo: todo });
   }
 
-  add(){
+  add() {
     this.navCtrl.push(FormPage);
   }
 
-  changeDone(todo){
+  changeDone(todo) {
     todo.done = !todo.done;
     this.filterTodo();
   }
+ 
 }
