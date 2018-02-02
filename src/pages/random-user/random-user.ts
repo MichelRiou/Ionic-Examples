@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Http } from '@angular/http';
+import { leave } from '@angular/core/src/profile/wtf_impl';
 
 /**
  * Generated class for the RandomUserPage page.
@@ -14,12 +16,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'random-user.html',
 })
 export class RandomUserPage {
+  private url:string="https://randomuser.me/api";
+  public user ={
+    name : ''
+  };
+  
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RandomUserPage');
+   this.http.get(this.url).subscribe(
+     (response) =>{
+       console.table(response);
+       console.table(response.json());
+     }
+   )
   }
 
 }
