@@ -18,6 +18,10 @@
     <h2>{{user.name}}</h2>
     <img src={{user.image}}>
   </ion-card>
+  <ion-list>
+    <ion-item *ngFor="let person of userList">
+<h2>{{person.name.first}} {{person.name.last | uppercase}}</h2>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
-=
