@@ -1,3 +1,4 @@
+import { Geolocation } from '@ionic-native/geolocation';
 import { VelibMapPage } from './../pages/velib-map/velib-map';
 
 import { RandomUserPage } from './../pages/random-user/random-user';
@@ -41,6 +42,7 @@ import { VelibPage } from '../pages/velib/velib';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Geolocation
    
 
   ]
