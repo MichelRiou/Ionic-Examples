@@ -45,4 +45,12 @@ export class RandomUserPage {
   }
     );
   }
+  loadMore(infiniteScroll){
+    this.http.get(this.url + '?results=10').subscribe(
+      (response) =>{
+        this.userList = this.userList.concat(response.json().results);
+        infiniteScroll.complete();
+  }
+    );
+  }
 }
