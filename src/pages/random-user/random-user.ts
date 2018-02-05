@@ -22,6 +22,7 @@ export class RandomUserPage {
     image: null
   };
   public userList=[];
+  public userSelectedIndex;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http) {
   }
@@ -52,5 +53,17 @@ export class RandomUserPage {
         infiniteScroll.complete();
   }
     );
+  }
+  refreshUsers(refresher){
+    this.http.get(this.url + '?results=10').subscribe(
+      (response) =>{
+        this.userList = response.json().results.concat(this.userList);
+        refresher.complete();
+  } 
+    );
+  }
+  displayUserInfo(pos){
+    this.userSelectedIndex=pos;
+
   }
 }
