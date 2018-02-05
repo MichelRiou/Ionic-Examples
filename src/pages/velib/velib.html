@@ -1,0 +1,28 @@
+<!--
+  Generated template for the VelibPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>velib</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list *ngFor="let enr of stations" (click) ="goToMap(enr)">
+    <ion-item>
+     {{enr.fields.name}}
+     {{enr.fields.station_id}}
+     </ion-item>
+     <ion-item>
+      <img src="https://maps/api/streetview?size=200x200&location={{enr.fields.lat}},{{enr.fields.lon}}">
+    </ion-item>
+    
+  </ion-list>
+
+</ion-content>

@@ -1,3 +1,4 @@
+import { VelibMapPage } from './../pages/velib-map/velib-map';
 
 import { RandomUserPage } from './../pages/random-user/random-user';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,13 +12,16 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
+import { VelibPage } from '../pages/velib/velib';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    RandomUserPage
+    RandomUserPage,
+    VelibPage,
+    VelibMapPage
   ],
   imports: [
     BrowserModule,
@@ -29,7 +33,9 @@ import { HttpModule } from '@angular/http';
     MyApp,
     HomePage,
     ListPage,
-    RandomUserPage
+    RandomUserPage,
+    VelibPage,
+    VelibMapPage
   ],
   providers: [
     StatusBar,

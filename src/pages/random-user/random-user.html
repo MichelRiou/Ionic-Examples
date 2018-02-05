@@ -9,12 +9,40 @@
   <ion-navbar>
     <ion-title>randomUser</ion-title>
   </ion-navbar>
-
+  <ion-item>
+    <ion-label>Genre</ion-label>
+    <ion-select (ionChange)="changeGender()" [(ngModel)]="selectedFilterGender" end>
+      <!--   <ion-option *ngFor="let item of filterList">{{item}}</ion-option>-->
+      <!-- </ion-select>
+    <ion-select [(ngModel)]="value" (onChange)=">-->
+      <ion-option selected value="female">Female</ion-option>
+      <ion-option value="male">Male</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Country</ion-label>
+    <ion-select (ionChange)="changeGender()" [(ngModel)]="selectedFilterCountry" end>
+      <!--   <ion-option *ngFor="let item of filterList">{{item}}</ion-option>-->
+      <!-- </ion-select>
+    <ion-select [(ngModel)]="value" (onChange)=">-->
+      <ion-option value="us">US</ion-option>
+      <ion-option value="de">DE</ion-option>
+      <ion-option value="au">AU</ion-option>
+      <ion-option value="ca">CA</ion-option>
+      <ion-option value="ch">CH</ion-option>
+      <ion-option value="dk">DK</ion-option>
+      <ion-option value="es">ES</ion-option>
+      <ion-option value="fi">FI</ion-option>
+      <ion-option value="fr">FR</ion-option>
+      <ion-option value="gb">GB</ion-option>
+      
+    </ion-select>
+  </ion-item>
 </ion-header>
 
 
 <ion-content padding>
- <!-- <ion-card>
+  <!-- <ion-card>
     <h2>{{user.name}}</h2>
     <img src={{user.image}}>
   </ion-card>-->
@@ -22,6 +50,7 @@
     <ion-item *ngFor="let person of userList; let pos=index" (click)="displayUserInfo(pos)">
       <h2>{{person.name.first}} {{person.name.last | uppercase}}</h2>
       <img [src]="person.picture.large" *ngIf="pos==userSelectedIndex">
+      <h2>{{person.gender}} {{person.nat}}</h2>
     </ion-item>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="loadMore($event)">
@@ -29,12 +58,8 @@
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
   <ion-refresher (ionRefresh)="refreshUsers($event)">
-    <ion-refresher-content
-    pullingIcon="arrow-dropdown"
-    pullingText="Pull to refresh"
-    refreshingSpinner="circles"
-    refreshingText="Refreshing...">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
     </ion-refresher-content>
-    </ion-refresher>
+  </ion-refresher>
 
 </ion-content>
